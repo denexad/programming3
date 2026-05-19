@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "fastapi-template"
+version = "0.1.0"
+description = "Template FastAPI project managed with Poetry"
+authors = ["Panasiyk <d.pnsw4444@gmail.com>"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.136.1"
+uvicorn = "^0.47.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
