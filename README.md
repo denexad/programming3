@@ -33,3 +33,4 @@ Docker Compose starts two containers:
 - `db` - PostgreSQL database.
 
 The project folder is mounted into `/app` inside the API container.
+Open the Docker version at `http://127.0.0.1:8001`.
