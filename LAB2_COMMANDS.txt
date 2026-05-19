@@ -1,0 +1,16 @@
+Lab 2 commands
+
+1. Build and start FastAPI and PostgreSQL containers:
+docker compose up --build
+
+2. Start containers in detached mode:
+docker compose up --build -d
+
+3. Check running containers:
+docker compose ps
+
+4. Check installed Python libraries inside the FastAPI container:
+docker compose exec api poetry show
+
+5. Stop containers:
+docker compose down
