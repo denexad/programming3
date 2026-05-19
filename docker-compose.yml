@@ -1,0 +1,27 @@
+services:
+  api:
+    build: .
+    container_name: fastapi_lab_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/fastapi_lab
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16-alpine
+    container_name: fastapi_lab_db
+    environment:
+      POSTGRES_DB: fastapi_lab
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
