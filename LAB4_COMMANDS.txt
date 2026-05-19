@@ -1,0 +1,27 @@
+Lab 4 commands
+
+1. Build and start containers:
+docker compose up --build -d
+
+2. Run Alembic migrations manually if needed:
+docker compose exec api alembic upgrade head
+
+3. Check migration status:
+docker compose exec api alembic current
+
+4. Check database tables:
+docker compose exec db psql -U postgres -d fastapi_lab -c "\dt"
+
+5. Check seeded data:
+docker compose exec db psql -U postgres -d fastapi_lab -c "SELECT * FROM users;"
+docker compose exec db psql -U postgres -d fastapi_lab -c "SELECT * FROM profiles;"
+docker compose exec db psql -U postgres -d fastapi_lab -c "SELECT * FROM categories;"
+docker compose exec db psql -U postgres -d fastapi_lab -c "SELECT * FROM products;"
+docker compose exec db psql -U postgres -d fastapi_lab -c "SELECT * FROM orders;"
+docker compose exec db psql -U postgres -d fastapi_lab -c "SELECT * FROM order_items;"
+
+6. Test API:
+curl http://127.0.0.1:8001/users/
+curl http://127.0.0.1:8001/categories/
+curl http://127.0.0.1:8001/products/
+curl http://127.0.0.1:8001/orders/

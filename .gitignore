@@ -17,6 +17,7 @@ poetry.toml
 
 # Logs
 *.log
+cookies.txt
 
 # OS
 .DS_Store

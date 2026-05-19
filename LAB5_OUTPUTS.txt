@@ -1,0 +1,33 @@
+Lab 5 verification outputs
+
+Register:
+POST /auth/register
+Response:
+{"username":"lab5user","email":"lab5user@example.com","id":3,"is_active":true}
+
+Login with JWT cookie:
+POST /auth/login
+Response:
+{"access_token":"<jwt-token>","token_type":"bearer"}
+Cookie:
+access_token=<jwt-token>; HttpOnly; SameSite=Lax
+
+Protected endpoint:
+GET /auth/me
+Response:
+{"username":"admin","email":"admin@example.com","id":1,"is_active":true}
+
+Protected endpoint:
+GET /auth/me/profile
+Response:
+{"first_name":"Admin","last_name":"User","phone":"+380501112233","address":"Kyiv","id":1,"user_id":1}
+
+Protected endpoint:
+GET /orders/my as student
+Response contains one seeded order for student.
+
+Password storage check:
+id | username | password_hash_prefix
+1  | admin    | $2b$12$...
+2  | student  | $2b$12$...
+3  | lab5user | $2b$12$...

@@ -7,7 +7,8 @@ services:
     volumes:
       - .:/app
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/fastapi_lab
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/fastapi_lab
+      JWT_SECRET_KEY: dev-secret-key
     depends_on:
       - db
 

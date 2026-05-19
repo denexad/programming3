@@ -9,6 +9,15 @@ package-mode = false
 python = "^3.12"
 fastapi = "^0.136.1"
 uvicorn = "^0.47.0"
+sqlalchemy = "^2.0.45"
+asyncpg = "^0.31.0"
+alembic = "^1.17.2"
+pydantic-settings = "^2.12.0"
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+bcrypt = ">=3.2,<4.0"
+pyjwt = "^2.10.1"
+python-multipart = "^0.0.21"
+email-validator = "^2.3.0"
 
 [build-system]
 requires = ["poetry-core"]

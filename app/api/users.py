@@ -1,19 +1,24 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.repositories.users import users_storage
+from app.core.security import hash_password
+from app.db.session import get_session
+from app.models import User
 from app.schemas.user import UserCreate, UserRead, UserUpdate
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
 
 @router.get("/", response_model=list[UserRead])
-def get_users() -> list[UserRead]:
-    return list(users_storage.values())
+async def get_users(session: AsyncSession = Depends(get_session)) -> list[User]:
+    users = await session.scalars(select(User).order_by(User.id))
+    return list(users)
 
 
 @router.get("/{user_id}", response_model=UserRead)
-def get_user(user_id: int) -> UserRead:
-    user = users_storage.get(user_id)
+async def get_user(user_id: int, session: AsyncSession = Depends(get_session)) -> User:
+    user = await session.get(User, user_id)
     if user is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -24,35 +29,65 @@ def get_user(user_id: int) -> UserRead:
 
 
 @router.post("/", response_model=UserRead, status_code=status.HTTP_201_CREATED)
-def create_user(user: UserCreate) -> UserRead:
-    user_id = max(users_storage.keys(), default=0) + 1
-    new_user = UserRead(id=user_id, **user.model_dump())
-    users_storage[user_id] = new_user
+async def create_user(
+    user_data: UserCreate,
+    session: AsyncSession = Depends(get_session),
+) -> User:
+    existing_user = await session.scalar(
+        select(User).where(
+            (User.username == user_data.username) | (User.email == user_data.email)
+        )
+    )
+    if existing_user is not None:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Username or email already exists",
+        )
 
-    return new_user
+    user = User(
+        username=user_data.username,
+        email=user_data.email,
+        hashed_password=hash_password(user_data.password),
+    )
+    session.add(user)
+    await session.commit()
+    await session.refresh(user)
+    return user
 
 
 @router.put("/{user_id}", response_model=UserRead)
-def update_user(user_id: int, user_update: UserUpdate) -> UserRead:
-    user = users_storage.get(user_id)
+async def update_user(
+    user_id: int,
+    user_update: UserUpdate,
+    session: AsyncSession = Depends(get_session),
+) -> User:
+    user = await session.get(User, user_id)
     if user is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="User not found",
         )
 
-    updated_user = user.model_copy(update=user_update.model_dump(exclude_unset=True))
-    users_storage[user_id] = updated_user
+    update_data = user_update.model_dump(exclude_unset=True)
+    password = update_data.pop("password", None)
+    for field, value in update_data.items():
+        setattr(user, field, value)
+    if password is not None:
+        user.hashed_password = hash_password(password)
 
-    return updated_user
+    await session.commit()
+    await session.refresh(user)
+    return user
 
 
 @router.delete("/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_user(user_id: int) -> None:
-    if user_id not in users_storage:
+async def delete_user(user_id: int, session: AsyncSession = Depends(get_session)) -> None:
+    user = await session.get(User, user_id)
+    if user is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="User not found",
         )
 
-    del users_storage[user_id]
+    await session.delete(user)
+    await session.commit()

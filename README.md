@@ -29,6 +29,14 @@ The application starts at `http://127.0.0.1:8000`.
 - `PUT /users/{user_id}` - update user.
 - `DELETE /users/{user_id}` - delete user.
 
+## Auth API
+
+- `POST /auth/register` - register a user.
+- `POST /auth/login` - authenticate and receive a JWT cookie.
+- `GET /auth/me` - get current authenticated user.
+- `GET /auth/me/profile` - get current authenticated user's profile.
+- `POST /auth/logout` - clear JWT cookie.
+
 ## Docker
 
 ```bash

@@ -1,0 +1,44 @@
+Lab 4 verification outputs
+
+Alembic current:
+20260519_0001 (head)
+
+Tables:
+alembic_version
+categories
+order_items
+orders
+products
+profiles
+users
+
+Users:
+id | username | email                | is_active
+1  | admin    | admin@example.com    | true
+2  | student  | student@example.com  | true
+3  | lab5user | lab5user@example.com | true
+
+Profiles:
+id | first_name | last_name | phone         | address | user_id
+1  | Admin      | User      | +380501112233 | Kyiv    | 1
+2  | Student    | Tester    | +380671112233 | Lviv    | 2
+
+Categories:
+id | name        | description
+1  | Electronics | Useful tech devices
+2  | Books       | Study and reference books
+
+Products:
+id | name         | description                | price    | category_id
+1  | Laptop       | FastAPI development laptop | 35000.00 | 1
+2  | Keyboard     | Mechanical keyboard        | 2500.00  | 1
+3  | FastAPI Book | Backend development guide  | 750.00   | 2
+
+Orders:
+id | status  | user_id
+1  | created | 2
+
+Order items:
+id | quantity | unit_price | order_id | product_id
+1  | 1        | 35000.00   | 1        | 1
+2  | 2        | 750.00     | 1        | 3

@@ -10,16 +10,16 @@ http://127.0.0.1:8001/docs
 curl http://127.0.0.1:8001/users/
 
 4. Create a user:
-curl -X POST http://127.0.0.1:8001/users/ -H "Content-Type: application/json" -d "{\"username\":\"student\",\"full_name\":\"Student User\",\"age\":19}"
+curl -X POST http://127.0.0.1:8001/users/ -H "Content-Type: application/json" -d "{\"username\":\"apiuser\",\"email\":\"apiuser@example.com\",\"password\":\"secret123\"}"
 
 5. Get one user:
-curl http://127.0.0.1:8001/users/2
+curl http://127.0.0.1:8001/users/3
 
 6. Update a user:
-curl -X PUT http://127.0.0.1:8001/users/2 -H "Content-Type: application/json" -d "{\"username\":\"student2\",\"full_name\":\"Updated Student\",\"age\":20}"
+curl -X PUT http://127.0.0.1:8001/users/3 -H "Content-Type: application/json" -d "{\"username\":\"apiuser2\",\"email\":\"apiuser2@example.com\"}"
 
 7. Delete a user:
-curl -X DELETE http://127.0.0.1:8001/users/2
+curl -X DELETE http://127.0.0.1:8001/users/3
 
 8. Stop containers:
 docker compose down
