@@ -1,0 +1,1 @@
+﻿9c99e6f (HEAD -> dev, prod) Create FastAPI Poetry template
