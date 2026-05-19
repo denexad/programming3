@@ -1,0 +1,27 @@
+Lab 2 verification outputs
+
+Command:
+docker compose ps
+
+Output:
+NAME              IMAGE                COMMAND                  SERVICE   STATUS              PORTS
+fastapi_lab_api   fastapi-api          "poetry run python -..." api       Up                  0.0.0.0:8001->8000/tcp
+fastapi_lab_db    postgres:16-alpine   "docker-entrypoint.s..." db        Up                  0.0.0.0:5433->5432/tcp
+
+Command:
+docker compose logs api --tail 40
+
+Important output:
+INFO:     Will watch for changes in these directories: ['/app']
+INFO:     Uvicorn running on http://0.0.0.0:8000
+INFO:     Started reloader process [1] using StatReload
+INFO:     Application startup complete.
+
+Command:
+docker compose exec -T api poetry show
+
+Important libraries inside the API container:
+fastapi           0.136.1
+pydantic          2.13.4
+starlette         1.0.0
+uvicorn           0.47.0

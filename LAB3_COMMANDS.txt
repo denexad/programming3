@@ -1,0 +1,25 @@
+Lab 3 commands
+
+1. Start the project with Docker Compose:
+docker compose up --build -d
+
+2. Check the API documentation:
+http://127.0.0.1:8001/docs
+
+3. Get all users:
+curl http://127.0.0.1:8001/users/
+
+4. Create a user:
+curl -X POST http://127.0.0.1:8001/users/ -H "Content-Type: application/json" -d "{\"username\":\"student\",\"full_name\":\"Student User\",\"age\":19}"
+
+5. Get one user:
+curl http://127.0.0.1:8001/users/2
+
+6. Update a user:
+curl -X PUT http://127.0.0.1:8001/users/2 -H "Content-Type: application/json" -d "{\"username\":\"student2\",\"full_name\":\"Updated Student\",\"age\":20}"
+
+7. Delete a user:
+curl -X DELETE http://127.0.0.1:8001/users/2
+
+8. Stop containers:
+docker compose down

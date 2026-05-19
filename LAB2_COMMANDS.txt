@@ -9,6 +9,12 @@ docker compose up --build -d
 3. Check running containers:
 docker compose ps
 
+FastAPI is available from the host at:
+http://127.0.0.1:8001
+
+PostgreSQL is available from the host at:
+localhost:5433
+
 4. Check installed Python libraries inside the FastAPI container:
 docker compose exec api poetry show
 

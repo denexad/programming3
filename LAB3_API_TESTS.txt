@@ -1,0 +1,36 @@
+Lab 3 API verification
+
+GET /users/
+Request:
+curl http://127.0.0.1:8001/users/
+
+Response:
+[{"username":"admin","full_name":"Admin User","age":21,"id":1}]
+
+POST /users/
+Request:
+curl -X POST http://127.0.0.1:8001/users/ -H "Content-Type: application/json" -d "{\"username\":\"student\",\"full_name\":\"Student User\",\"age\":19}"
+
+Response:
+{"username":"student","full_name":"Student User","age":19,"id":2}
+
+GET /users/2
+Request:
+curl http://127.0.0.1:8001/users/2
+
+Response:
+{"username":"student","full_name":"Student User","age":19,"id":2}
+
+PUT /users/2
+Request:
+curl -X PUT http://127.0.0.1:8001/users/2 -H "Content-Type: application/json" -d "{\"username\":\"student2\",\"full_name\":\"Updated Student\",\"age\":20}"
+
+Response:
+{"username":"student2","full_name":"Updated Student","age":20,"id":2}
+
+DELETE /users/2
+Request:
+curl -X DELETE http://127.0.0.1:8001/users/2
+
+Response:
+HTTP/1.1 204 No Content

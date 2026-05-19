@@ -21,6 +21,14 @@ poetry run uvicorn app.main:app --reload
 
 The application starts at `http://127.0.0.1:8000`.
 
+## Users API
+
+- `GET /users/` - get all users.
+- `GET /users/{user_id}` - get user by id.
+- `POST /users/` - create user.
+- `PUT /users/{user_id}` - update user.
+- `DELETE /users/{user_id}` - delete user.
+
 ## Docker
 
 ```bash
@@ -33,3 +41,4 @@ Docker Compose starts two containers:
 - `db` - PostgreSQL database.
 
 The project folder is mounted into `/app` inside the API container.
+Open the Docker version at `http://127.0.0.1:8001`.
