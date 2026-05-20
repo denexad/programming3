@@ -1,6 +1,7 @@
 Lab 4 commands
 
 1. Build and start containers:
+copy .env.example .env
 docker compose up --build -d
 
 2. Run Alembic migrations manually if needed:

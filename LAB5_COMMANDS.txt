@@ -1,6 +1,7 @@
 Lab 5 commands
 
 1. Register user:
+Make sure `.env` exists and contains local secrets before starting containers.
 curl -X POST http://127.0.0.1:8001/auth/register -H "Content-Type: application/json" -d "{\"username\":\"newuser\",\"email\":\"newuser@example.com\",\"password\":\"secret123\"}"
 
 2. Login and save cookie:

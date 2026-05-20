@@ -40,6 +40,7 @@ The application starts at `http://127.0.0.1:8000`.
 ## Docker
 
 ```bash
+copy .env.example .env
 docker compose up --build
 ```
 
@@ -50,3 +51,5 @@ Docker Compose starts two containers:
 
 The project folder is mounted into `/app` inside the API container.
 Open the Docker version at `http://127.0.0.1:8001`.
+
+Do not commit `.env`. Keep only `.env.example` in git.
